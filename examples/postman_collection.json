@@ -1,0 +1,81 @@
+{
+  "info": {
+    "name": "Distributed Document Search Service",
+    "_postman_id": "2d3d7a4e-8a2d-4d0a-9f9c-1f77f4b9b001",
+    "description": "Sample requests for the document search prototype.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Index Document",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "X-Tenant-ID", "value": "{{tenantId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"doc-1\",\n  \"title\": \"Distributed Search Service\",\n  \"body\": \"Tenant-aware full text search with caching and rate limiting.\",\n  \"metadata\": {\n    \"source\": \"sample\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/documents",
+          "host": ["{{baseUrl}}"],
+          "path": ["documents"]
+        }
+      }
+    },
+    {
+      "name": "Get Document",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "X-Tenant-ID", "value": "{{tenantId}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/documents/doc-1",
+          "host": ["{{baseUrl}}"],
+          "path": ["documents", "doc-1"]
+        }
+      }
+    },
+    {
+      "name": "Search",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "X-Tenant-ID", "value": "{{tenantId}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/search?q=tenant%20search",
+          "host": ["{{baseUrl}}"],
+          "path": ["search"],
+          "query": [{ "key": "q", "value": "tenant search" }]
+        }
+      }
+    },
+    {
+      "name": "Delete Document",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "X-Tenant-ID", "value": "{{tenantId}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/documents/doc-1",
+          "host": ["{{baseUrl}}"],
+          "path": ["documents", "doc-1"]
+        }
+      }
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000" },
+    { "key": "tenantId", "value": "tenant-a" }
+  ]
+}
